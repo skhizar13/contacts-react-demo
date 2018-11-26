@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "contacts",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognito1735e1bc",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "schemaGraphql": "s3://contacts-20181126190052-deployment/amplify-appsync-files/schema.graphql.1543244756742",
+    "ResolverBucket": "contacts-20181126190052-deployment",
+    "ResolverRootKey": "amplify-appsync-files",
+    "DeploymentTimestamp": "1543244756742"
+}

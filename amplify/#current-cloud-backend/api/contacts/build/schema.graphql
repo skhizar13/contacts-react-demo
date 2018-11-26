@@ -1,0 +1,115 @@
+type Contact {
+  id: String!
+  name: String
+  email: String
+  phone: String
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelContactConnection {
+  items: [Contact]
+  nextToken: String
+}
+
+input ModelStringFilterInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+}
+
+input ModelIDFilterInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+}
+
+input ModelIntFilterInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  contains: Int
+  notContains: Int
+  between: [Int]
+}
+
+input ModelFloatFilterInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  contains: Float
+  notContains: Float
+  between: [Float]
+}
+
+input ModelBooleanFilterInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelContactFilterInput {
+  id: ModelStringFilterInput
+  name: ModelStringFilterInput
+  email: ModelStringFilterInput
+  phone: ModelStringFilterInput
+  and: [ModelContactFilterInput]
+  or: [ModelContactFilterInput]
+  not: ModelContactFilterInput
+}
+
+type Query {
+  getContact(id: ID!): Contact
+  listContacts(filter: ModelContactFilterInput, limit: Int, nextToken: String): ModelContactConnection
+}
+
+input CreateContactInput {
+  name: String
+  email: String
+  phone: String
+}
+
+input UpdateContactInput {
+  id: String!
+  name: String
+  email: String
+  phone: String
+}
+
+input DeleteContactInput {
+  id: ID
+}
+
+type Mutation {
+  createContact(input: CreateContactInput!): Contact
+  updateContact(input: UpdateContactInput!): Contact
+  deleteContact(input: DeleteContactInput!): Contact
+}
+
+type Subscription {
+  onCreateContact: Contact @aws_subscribe(mutations: ["createContact"])
+  onUpdateContact: Contact @aws_subscribe(mutations: ["updateContact"])
+  onDeleteContact: Contact @aws_subscribe(mutations: ["deleteContact"])
+}
